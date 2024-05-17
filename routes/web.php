@@ -3,6 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/token', [ProfileController::class, 'generateToken'])->name('profile.token');
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });

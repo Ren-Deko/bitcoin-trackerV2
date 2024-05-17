@@ -9,6 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class ProfileController extends Controller
+{
+    public function show()
+    {
+        $user = Auth::user();
+        return view('profile.show', compact('user'));
+    }
+
+    public function generateToken(Request $request)
+    {
+        $user = Auth::user();
+        $token = $user->createToken('profile-token')->plainTextToken;
+        
+        return redirect()->back()->with('token', $token);
+    }
+}
+
+
 class ProfileController extends Controller
 {
     /**
